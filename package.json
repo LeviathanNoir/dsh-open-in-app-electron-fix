@@ -1,0 +1,24 @@
+{
+  "name": "dsh-open-in-app-electron-fix",
+  "version": "0.1.0",
+  "description": "修复 DSH 打包版（桌面版与全局 dsh 命令）打不开 VS Code 等 Electron 应用的问题：open-in-app 启动 GUI 应用时，宿主泄漏的 ELECTRON_RUN_AS_NODE=1 会使其进入 Node 模式秒退。本插件包装 /open-in-app/open 路由，在启动请求期间临时摘掉该环境变量。",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "cordis.patch.yml"
+  ],
+  "scripts": {
+    "check": "node --check index.js && node scripts/smoke.mjs",
+    "pack": "npm pack"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dsh": "0.2.1-rc.3",
+      "profiles": ["web", "desktop"]
+    }
+  }
+}
